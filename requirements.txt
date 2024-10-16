@@ -5,5 +5,5 @@ Flask-Mail
 Jinja2
 Werkzeug
 itsdangerous
-gunicorn Main:app
+gunicorn 
 
