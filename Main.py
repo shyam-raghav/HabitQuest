@@ -1,9 +1,11 @@
+from email.message import Message
 from flask import Flask, render_template, redirect, url_for, flash, request, session
 import sqlite3
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import URLSafeTimedSerializer
 import smtplib
+from email.mime.text import MIMEText
 
 app = Flask(__name__)
 app.secret_key = '4e4f7a3f49c658f7e2f2e3be3c6e3d2e682c1c3e4e2fcd11f40c3b487c3a19c5'  # Replace with your generated key
@@ -179,17 +181,21 @@ def forgot_password():
             # Generate a token
             token = s.dumps(email, salt='password-reset-salt')
             reset_link = url_for('reset_password', token=token, _external=True)
-            
+            print(97)
+            print(reset_link)
             server = smtplib.SMTP('smtp.gmail.com', 587)
             server.starttls()
-            server.login( 'machhavenkatalakshmi@gmail.com','mrk*14143')
-            server.sendmail( 'machhavenkatalakshmi@gmail.com', email, f'Your password reset link is: {reset_link}')
-            # # Send the email
-            # msg = Message('Password Reset Request', recipients=[email])
-            # msg.body = f'Your password reset link is: {reset_link}'
-            # mail.send(msg)
-            print('mail sent')
+            server.login( 'shyamraghav12@gmail.com','ccqm klcv qnpz dgmy')
+            message_content = f'Your password reset link is: {reset_link}'
 
+# Construct the MIMEText object for the email body
+            msg = MIMEText(message_content)
+
+# Set the sender, recipient, and subject of the email
+            msg['From'] = 'shyamraghav12@gmail.com'
+            msg['To'] = email
+            msg['Subject'] = 'Password Reset Request'
+            server.sendmail('shyamraghav12@gmail.com', email, msg.as_string())# Send the email
             flash('A password reset link has been sent to your email address.')
             return redirect(url_for('login'))
         else:
@@ -221,6 +227,7 @@ def reset_password(token):
         return redirect(url_for('login'))
 
     return render_template('reset_password.html', token=token)
+
 
 
 @app.route('/setgoals')
