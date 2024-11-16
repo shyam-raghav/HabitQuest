@@ -14,13 +14,21 @@
 
         body {
             font-family: 'Arial', sans-serif;
+<<<<<<< HEAD
             background-color: #eae9d8; /* Light pink background */
+=======
+            background-color: #f7e8e8; /* Light pink background */
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
             color: #333;
         }
 
         /* Navbar styling */
         .navbar {
+<<<<<<< HEAD
             background-color: #1B5E20; /* Green background */
+=======
+            background-color: #36a03e; /* Green background */
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -173,7 +181,11 @@
         }
 
         button {
+<<<<<<< HEAD
             background-color: #1B5E20; /* Green button */
+=======
+            background-color: #4CAF50; /* Green button */
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
             color: white; /* White text */
             border: none; /* No border */
             border-radius: 5px; /* Rounded button */
@@ -184,7 +196,11 @@
         }
 
         button:hover {
+<<<<<<< HEAD
             background-color: #1B5E20; /* Darker green on hover */
+=======
+            background-color: #45a049; /* Darker green on hover */
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
         }
 
         .no-underline {
@@ -197,7 +213,11 @@
         }
 
         .dropbtn {
+<<<<<<< HEAD
             background-color: #1B5E20; /* Green */
+=======
+            background-color: #4CAF50; /* Green */
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
             color: white;
             padding: 10px;
             font-size: 16px;
@@ -230,7 +250,11 @@
         }
 
         .dropdown:hover .dropbtn {
+<<<<<<< HEAD
             background-color: #1B5E20;
+=======
+            background-color: #3e8e41;
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
         }
 
         .enrolled-button {
@@ -238,6 +262,7 @@
     color: inherit;        /* Ensure the text color is inherited from the button */
 }
 
+<<<<<<< HEAD
  /* High-contrast mode */
  .high-contrast {
             filter: invert(1) hue-rotate(180deg);
@@ -267,6 +292,8 @@
             transform: translateY(0); /* Return to original position */
         }
 
+=======
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
     </style>
     <script>
         function searchCourses() {
@@ -291,6 +318,7 @@
     </script>
 </head>
 <body>
+<<<<<<< HEAD
     <!-- Accessibility buttons -->
     <div class="accessibility-controls">
         <button onclick="toggleTextToSpeech()">Text-to-Speech</button>
@@ -340,6 +368,8 @@
             });
         });
     </script>
+=======
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
     <div class="navbar">
         <header class="logo-container">
             <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/eb1830b5454e0074642c040444e16c8b4efe38cc3a5289983eba32e185b3736b?placeholderIfAbsent=true&apiKey=aa3f52c3f2244f6ca05b5f4f61461c10" alt="HabitQuest Logo" class="logo-image">
@@ -358,13 +388,22 @@
             <div class="dropdown-content">
                 <a href="{{ url_for('setgoals') }}">Set Goals</a>
                 <a href="{{ url_for('profile_update') }}">Profile Customization</a>
+<<<<<<< HEAD
                 <a href="{{url_for('rewards', user_id=user_id)}}">Rewards</a>
+=======
+                <a href="{{url_for('rewards')}}">Rewards</a>
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
                 <a href="{{ url_for('logout') }}" class="logout">Log Out</a>
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 <div class="text-to-speak">
         <div class="dashboard-container">
+=======
+
+    <div class="dashboard-container">
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
         <h1>Select a Habit-Building Course</h1>
 
         <div class="search-container">
@@ -380,10 +419,16 @@
                     {% if course.is_completed %}
                         <button type="button" class="completed-button">Completed</button>
                     {% elif course.is_enrolled %}
+<<<<<<< HEAD
                         <button><a href="{{ url_for('course_content', content_id=course.content_id) }}" class="enrolled-button">Enrolled</a></button>
                     {% elif not course.is_enrolled %}
                     <button type="submit" class="enroll-button" style="background-color: #1B5E20; color: white;">Enroll</button>
 
+=======
+                        <button><a href="{{ url_for('content_delivery', habit_id=course.habit_id) }}" class="enrolled-button">Enrolled</a></button>
+                    {% elif not course.is_enrolled %}
+                        <button type="submit" class="enroll-button" style="background-color: yellowgreen;">Enroll</button>
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
                     {% endif %}
                 </form>
         
@@ -391,6 +436,10 @@
             {% endfor %}
         </div>
     </div>        
+<<<<<<< HEAD
 </div>
+=======
+  
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
 </body>
 </html>

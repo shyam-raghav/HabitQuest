@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,11 +8,20 @@
 <style>
   body {
     background-color: #eae9d8;
+=======
+<style>
+  body {
+    background-color: #f0e3e3;
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
     font-family: 'Inter', sans-serif;
   }
 
   .set-goals-page {
+<<<<<<< HEAD
     background-color: #f4f1ea;
+=======
+    background-color: #f0e3e3;
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
     display: flex;
     flex-direction: column;
     padding: 40px 20px;
@@ -78,7 +88,11 @@
     width: 100%;
     padding: 12px;
     border: none;
+<<<<<<< HEAD
     background-color: #1B5E20;
+=======
+    background-color: #007bff;
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
     color: #ffffff;
     border-radius: 8px;
     font-size: 16px;
@@ -87,7 +101,11 @@
   }
 
   .submit-button:hover {
+<<<<<<< HEAD
     background-color: #1B5E20;
+=======
+    background-color: #0056b3;
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
   }
 
   .active-goals-container {
@@ -116,7 +134,11 @@
 
   
   .button {
+<<<<<<< HEAD
         background-color: #1B5E20; /* Green background */
+=======
+        background-color: #4CAF50; /* Green background */
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
         color: white; /* White text */
         padding: 10px 20px; /* Padding */
         text-align: center; /* Center text */
@@ -134,6 +156,7 @@
     .button:hover {
         background-color: #45a049; /* Darker green on hover */
     }
+<<<<<<< HEAD
  /* High-contrast mode */
  .high-contrast {
             filter: invert(1) hue-rotate(180deg);
@@ -213,6 +236,10 @@
       });
   });
 </script>
+=======
+
+</style>
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
 <header class="header">
   <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/eb1830b5454e0074642c040444e16c8b4efe38cc3a5289983eba32e185b3736b?placeholderIfAbsent=true&apiKey=aa3f52c3f2244f6ca05b5f4f61461c10" class="logo" alt="HabitQuest Logo" />
   <h1 class="app-title">HabitQuest</h1>
@@ -224,6 +251,7 @@
   <main class="goals-container">
     <h2 class="section-title">Set Your Goals</h2>
 
+<<<<<<< HEAD
     <form action="/add_goal" method="POST">
       <label for="goal_title" class="input-label">Goal Title</label>
       <div class="input-field">
@@ -254,3 +282,33 @@
 </section>
 </body>
 </html>
+=======
+    <form>
+      <label for="goal-title" class="input-label">Goal Title</label>
+      <div class="input-field">
+        <input type="text" id="goal-title" placeholder="Enter your goal" />
+      </div>
+
+      <label for="goal-deadline" class="input-label">Deadline</label>
+      <div class="input-field">
+        <input type="date" id="goal-deadline" class="date-format" />
+      </div>
+
+      <button type="submit" class="submit-button">Set Goal</button>
+    </form>
+
+    <div class="active-goals-container">
+      <h3 class="active-goals-title">Active Goals</h3>
+      <ul class="active-goals-list">
+        <li class="goal-item">
+          Complete Morning Routine by <span class="goal-deadline">Sep 30, 2024</span>
+        </li>
+        <li class="goal-item">
+          Read 10 Books by <span class="goal-deadline">Dec 31, 2024</span>
+        </li>
+      </ul>
+    </div>
+  </main>
+  
+</section>
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324

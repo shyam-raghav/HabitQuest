@@ -7,7 +7,11 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+<<<<<<< HEAD
             background-color: #eae9d8;
+=======
+            background-color: #f4f4f4;
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
             margin: 0;
             padding: 0;
         }
@@ -22,7 +26,11 @@
         }
 
         h1 {
+<<<<<<< HEAD
             color: #1B5E20;
+=======
+            color: #4CAF50;
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
             text-align: center;
         }
 
@@ -57,7 +65,11 @@
         }
 
         .redeem-button {
+<<<<<<< HEAD
             background-color: #1B5E20;
+=======
+            background-color: #4CAF50;
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
             color: white;
             border: none;
             padding: 10px 15px;
@@ -68,12 +80,20 @@
         }
 
         .redeem-button:hover {
+<<<<<<< HEAD
             background-color: #1B5E20;
+=======
+            background-color: #45a049;
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
         }
 
         .back-button {
             display: inline-block;
+<<<<<<< HEAD
             background-color: #1B5E20;
+=======
+            background-color: #555;
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
             color: white;
             padding: 10px 20px;
             border-radius: 5px;
@@ -83,7 +103,11 @@
         }
 
         .back-button:hover {
+<<<<<<< HEAD
             background-color: #1B5E20;
+=======
+            background-color: #333;
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
         }
 
         .points-section {
@@ -94,6 +118,7 @@
 
         .points-section span {
             font-weight: bold;
+<<<<<<< HEAD
             color: #1B5E20;
         }
  /* High-contrast mode */
@@ -124,10 +149,16 @@
         button:active {
             transform: translateY(0); /* Return to original position */
         }
+=======
+            color: #4CAF50;
+        }
+
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
         
     </style>
 </head>
 <body>
+<<<<<<< HEAD
     <!-- Accessibility buttons -->
     <div class="accessibility-controls">
         <button onclick="toggleTextToSpeech()">Text-to-Speech</button>
@@ -178,10 +209,15 @@
         });
     </script>
     <div class="container">
+=======
+    <div class="container">
+        
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
         <a href="{{ url_for('index') }}" class="back-button">Back to home</a>
         <h1>Your Rewards</h1>
 
         <div class="points-section">
+<<<<<<< HEAD
             <p>You have <span>{{ total_points }}</span> available to redeem!</p>
         </div>
 
@@ -194,6 +230,32 @@
                     <div class="reward-description">Reward earned: {{ reward[1] }}</div>
                 </div>
             {% endfor %}
+=======
+            <p>You have <span>250 Points</span> available to redeem!</p>
+        </div>
+
+        <div class="rewards-section">
+            <div class="reward-item">
+                <img src="https://via.placeholder.com/40/FFD700/FFFFFF?text=G" alt="Gold Badge" class="badge">
+                <div class="reward-title">Gold Badge</div>
+                <div class="reward-description">Earned by accumulating 1000 points.</div>
+                <button class="redeem-button">Redeem Now</button>
+            </div>
+
+            <div class="reward-item">
+                <img src="https://via.placeholder.com/40/C0C0C0/FFFFFF?text=S" alt="Silver Badge" class="badge">
+                <div class="reward-title">Silver Badge</div>
+                <div class="reward-description">Earned by accumulating 500 points.</div>
+                <button class="redeem-button">Redeem Now</button>
+            </div>
+
+            <div class="reward-item">
+                <img src="https://via.placeholder.com/40/CD7F32/FFFFFF?text=B" alt="Bronze Badge" class="badge">
+                <div class="reward-title">Bronze Badge</div>
+                <div class="reward-description">Earned by accumulating 250 points.</div>
+                <button class="redeem-button">Redeem Now</button>
+            </div>
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
         </div>
     </div>
 </body>

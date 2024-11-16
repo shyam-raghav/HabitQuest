@@ -5,4 +5,9 @@ Flask-Mail
 Jinja2
 Werkzeug
 itsdangerous
+<<<<<<< HEAD
 gunicorn 
+=======
+gunicorn 
+
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324

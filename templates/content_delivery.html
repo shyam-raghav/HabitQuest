@@ -10,11 +10,19 @@
       margin: 0;
       padding: 0;
       font-family: 'Arial', sans-serif;
+<<<<<<< HEAD
       background-color: #eae9d8;
     }
 
     header {
       background-color: #1B5E20;
+=======
+      background-color: #f7e8e8;
+    }
+
+    header {
+      background-color: #4CAF50;
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
       color: white;
       padding: 20px;
       text-align: center;
@@ -25,7 +33,11 @@
     }
 
     nav {
+<<<<<<< HEAD
       background-color: #1B5E20;
+=======
+      background-color: #388E3C;
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
       padding: 15px;
       text-align: center;
     }
@@ -91,25 +103,41 @@
 
     .card-link {
       text-decoration: none;
+<<<<<<< HEAD
       color: #1B5E20;
+=======
+      color: #4CAF50;
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
       font-weight: bold;
       transition: color 0.3s ease;
     }
 
     .card-link:hover {
+<<<<<<< HEAD
       color: #1B5E20;
+=======
+      color: #388E3C;
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
     }
 
     footer {
       text-align: center;
+<<<<<<< HEAD
       background-color: #1B5E20;
+=======
+      background-color: #4CAF50;
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
       color: white;
       padding: 20px;
       margin-top: 40px;
     }
     
     .button {
+<<<<<<< HEAD
         background-color: #1B5E20; /* Green background */
+=======
+        background-color: #4CAF50; /* Green background */
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
         color: white; /* White text */
         padding: 10px 20px; /* Padding */
         text-align: center; /* Center text */
@@ -125,6 +153,7 @@
     }
 
     .button:hover {
+<<<<<<< HEAD
         background-color: #1B5E20; /* Darker green on hover */
     }
 
@@ -156,6 +185,10 @@
         button:active {
             transform: translateY(0); /* Return to original position */
         }
+=======
+        background-color: #45a049; /* Darker green on hover */
+    }
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
   </style>
 </head>
 <body>
@@ -166,6 +199,7 @@
 
 
 <div class="container">
+<<<<<<< HEAD
   <a href="{{ url_for('index') }}" class="button">Back to home</a>
   <!-- Accessibility buttons -->
   <div class="accessibility-controls">
@@ -244,6 +278,43 @@
   </div>
 </div>
 </div>
+=======
+    <a href="{{ url_for('index') }}" class="button">Back to home</a>
+  <h2>Explore Our Learning Resources for {{course_name}}</h2>
+  <div class="content-grid">
+    <!-- Video Tutorials Section -->
+    <div class="card" id="videos">
+      <img src="https://via.placeholder.com/400x200" alt="Video Tutorials">
+      <div class="card-content">
+        <h3 class="card-title">Video Tutorials</h3>
+        <p class="card-description">Access our extensive library of video tutorials to help you master new skills and form habits step by step.</p>
+        <a href="/video-tutorials" class="card-link">Watch Now</a>
+      </div>
+    </div>
+
+    <!-- Assessments Section -->
+    <div class="card" id="assessments">
+      <img src="https://via.placeholder.com/400x200" alt="Assessments">
+      <div class="card-content">
+        <h3 class="card-title">Assessments</h3>
+        <p class="card-description">Test your knowledge and track your progress with our assessments designed to reinforce learning.</p>
+        <a href="/assessments" class="card-link">Take an Assessment</a>
+      </div>
+    </div>
+
+    <!-- Interactive Learning Materials Section -->
+    <div class="card" id="interactive-materials">
+      <img src="https://via.placeholder.com/400x200" alt="Interactive Materials">
+      <div class="card-content">
+        <h3 class="card-title">Interactive Learning Materials</h3>
+        <p class="card-description">Engage with interactive learning materials that provide hands-on experience and real-time feedback.</p>
+        <a href="/interactive-materials" class="card-link">Start Learning</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
 <footer>
   <p>&copy; 2024 HabitQuest. All rights reserved.</p>
 </footer>

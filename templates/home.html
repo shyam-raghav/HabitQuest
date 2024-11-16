@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 
+=======
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
     <title>HabitQuest Dashboard</title>
     <style>
         /* Reset some default styles */
@@ -16,13 +19,21 @@
 
 body {
     font-family: 'Arial', sans-serif;
+<<<<<<< HEAD
     background-color: #eae9d8; /* Light pink background */
+=======
+    background-color: #f7e8e8; /* Light pink background */
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
     color: #333;
 }
 
 /* Navbar styling */
 .navbar {
+<<<<<<< HEAD
     background-color: #1B5E20; /* Green background */
+=======
+    background-color: #36a03e; /* Green background */
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -73,6 +84,7 @@ h1 {
 }
 
 .courses-enrolled, .courses-completed {
+<<<<<<< HEAD
             width: 45%;
             padding: 20px;
             background-color: #f7f7f7;
@@ -83,6 +95,18 @@ h1 {
 
 .courses-enrolled a, .courses-completed a {
     color: #0056b3; /* Blue link color */
+=======
+    width: 45%;
+    padding: 20px;
+    background-color: #f7f7f7;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.courses-enrolled a, .courses-completed a {
+    color: #007bff; /* Blue link color */
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
     text-decoration: none;
     font-weight: bold;
 }
@@ -139,7 +163,11 @@ tbody tr:nth-child(even) {
     }
 
     .dropbtn {
+<<<<<<< HEAD
         background-color: #1B5E20; /* Green */
+=======
+        background-color: #4CAF50; /* Green */
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
         color: white;
         padding: 10px;
         font-size: 16px;
@@ -172,6 +200,7 @@ tbody tr:nth-child(even) {
     }
 
     .dropdown:hover .dropbtn {
+<<<<<<< HEAD
         background-color: #1B5E20;
     }
 
@@ -291,6 +320,14 @@ tbody tr:nth-child(even) {
         });
     </script>
 
+=======
+        background-color: #3e8e41;
+    }
+
+    </style>
+</head>
+<body>
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
     <div class="navbar">
         <header class="logo-container">
             <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/eb1830b5454e0074642c040444e16c8b4efe38cc3a5289983eba32e185b3736b?placeholderIfAbsent=true&apiKey=aa3f52c3f2244f6ca05b5f4f61461c10" alt="HabitQuest Logo" class="logo-image">
@@ -302,7 +339,11 @@ tbody tr:nth-child(even) {
             <a href="{{url_for('progress')}}">Track Progress</a>
             <a href="{{url_for('courses')}}">Register Habit/Course</a>
             <a href="{{url_for('user_analysis')}}">User Analytics</a>
+<<<<<<< HEAD
             
+=======
+            <a href="{{url_for('parental_monitoring')}}">Parental Monitoring</a>
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
             <a href="{{url_for('sync')}}">Calendar Sync</a>
            
         </div>
@@ -311,12 +352,20 @@ tbody tr:nth-child(even) {
             <div class="dropdown-content">
                 <a href="{{ url_for('setgoals') }}">Set Goals</a>
                 <a href="{{ url_for('profile_update') }}">Profile Customization</a>
+<<<<<<< HEAD
                 <a href="{{url_for('rewards', user_id=user_id)}}">Rewards</a>
+=======
+                <a href="{{url_for('rewards')}}">Rewards</a>
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
                 <a href="{{ url_for('logout') }}" class="logout">Log Out</a>
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 <div class="text-to-speak">
+=======
+
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
     <div class="dashboard-container">
         <h1>Welcome to Dashboard, {{ user['name'] }}!</h1>
         
@@ -329,16 +378,23 @@ tbody tr:nth-child(even) {
             </div>
             <div class="courses-completed">
                 <p>Completed</p>
+<<<<<<< HEAD
                 <a href="#">{{ completed_count }} Courses</a>
+=======
+                <a href="#">{{ completed_courses }} Courses</a>
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
             </div>
         </div>
     
         <div class="habit-tracker">
             <h2>Daily Habit Tracker</h2>
+<<<<<<< HEAD
             <div class="search-container">
                 <input type="text" id="searchInput" onkeyup="searchCourses()" placeholder="Search for courses..." aria-label="Search for courses">
 
             </div>
+=======
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
             <table>
                 <thead>
                     <tr>
@@ -349,9 +405,13 @@ tbody tr:nth-child(even) {
                 <tbody>
                     {% for habit in enrolled_courses %}
                 <tr>
+<<<<<<< HEAD
                     <td><a href="{{ url_for('course_content', content_id=habit['content_id']) }}" class="habit-link">
                         {{ habit['task_name'] }}
                     </a></td>
+=======
+                    <td>{{ habit['habit_name'] }}</td>
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
                     <td>{{ habit['status'] }}</td>  
                 </tr>
             {% endfor %}
@@ -360,6 +420,7 @@ tbody tr:nth-child(even) {
         </div>
     </div>
     
+<<<<<<< HEAD
 </div>
     <!-- External scripts -->
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
@@ -403,5 +464,7 @@ tbody tr:nth-child(even) {
             });
         });
     </script>
+=======
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
 </body>
 </html>

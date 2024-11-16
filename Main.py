@@ -1,12 +1,20 @@
+<<<<<<< HEAD
+=======
+from email.message import Message
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
 from flask import Flask, render_template, redirect, url_for, flash, request, session
 import sqlite3
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import URLSafeTimedSerializer
 import smtplib
+<<<<<<< HEAD
 from flask_apscheduler import APScheduler
 from email.mime.text import MIMEText
 from flask_mail import Mail, Message
+=======
+from email.mime.text import MIMEText
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
 
 app = Flask(__name__)
 app.secret_key = '4e4f7a3f49c658f7e2f2e3be3c6e3d2e682c1c3e4e2fcd11f40c3b487c3a19c5'  # Replace with your generated key
@@ -18,6 +26,7 @@ s = URLSafeTimedSerializer(app.secret_key)
 
 # SQLite connection function
 def get_db_connection():
+<<<<<<< HEAD
     conn = sqlite3.connect('habit_tracker.db',timeout=10)
     conn.row_factory = sqlite3.Row  # To fetch rows as dictionaries
     return conn
@@ -114,12 +123,21 @@ scheduler.add_job(id='check_goal_deadlines', func=check_goal_deadlines, trigger=
 def index():
     print(session)
     #session.clear()
+=======
+    conn = sqlite3.connect('habit_tracker.db')
+    conn.row_factory = sqlite3.Row  # To fetch rows as dictionaries
+    return conn
+
+@app.route('/', methods=['GET'])
+def index():
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
     if 'email' in session:
         user_id = session['user_id']
         
         # Fetch counts and course names
         conn = get_db_connection()
         cursor = conn.cursor()
+<<<<<<< HEAD
         role = session['role']
            
             
@@ -166,6 +184,29 @@ def index():
             #flash('Session expired or user not found. Please log in again.')
             return redirect(url_for('login'))
        
+=======
+        
+        # Get count of enrolled courses
+        cursor.execute('SELECT COUNT(*) as enrolled_count FROM Habits WHERE user_id = ?', (user_id,))
+        enrolled_count = cursor.fetchone()['enrolled_count']
+        
+        # Get count of completed courses
+        cursor.execute('SELECT COUNT(*) as completed_count FROM Habits WHERE user_id = ? AND status = ?', 
+                       (user_id, 'Completed'))
+        completed_count = cursor.fetchone()['completed_count']
+        if completed_count is None:
+            completed_count = 0
+        # Fetch enrolled courses and their progress
+        cursor.execute('SELECT habit_name, status FROM Habits WHERE user_id = ?', (user_id,))
+        enrolled_courses = cursor.fetchall()
+        
+        conn.close()
+        
+        return render_template('home.html', user=session, 
+                               enrolled_count=enrolled_count, 
+                               completed_count=completed_count,
+                               enrolled_courses=enrolled_courses)
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
     else:
         return render_template('index.html', user=None)
 
@@ -180,6 +221,7 @@ def signup():
         email = request.form.get('email')
         password = request.form.get('password')
         role = request.form.get('role')  # Child, Parent, Teacher
+<<<<<<< HEAD
         phone=request.form.get('phone')
         registration_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -263,6 +305,41 @@ def get_parents():
     parents = cursor.fetchall()
     conn.close()
     return parents
+=======
+        registration_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        # Hash the password before storing
+        hashed_password = generate_password_hash(password)  # Default hashing method
+        print(name,email,password,role,registration_date,hashed_password)
+        try:
+            # Insert user into database
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            cursor.execute('''
+                INSERT INTO Users (name, email, password, role, registration_date)
+                VALUES (?, ?, ?, ?, ?)
+            ''', (name, email, hashed_password, role, registration_date))
+            conn.commit()
+            conn.close()
+            print('signuped')
+            flash('Signup successful! Please log in.')
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            cursor.execute('SELECT * FROM Users WHERE email = ?', (email,))
+            user = cursor.fetchone()
+        # print(user)
+            conn.close()
+            session['user_id'] = user['user_id']
+            session['email'] = user['email']
+            session['name'] = user['name']
+            return redirect(url_for('index'))
+
+        except sqlite3.IntegrityError:
+            flash('Email already exists. Please use a different one.')
+            return redirect(url_for('signup'))
+
+    return render_template('signup.html')
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
 
 # Login route
 @app.route('/login', methods=['GET', 'POST'])
@@ -270,6 +347,7 @@ def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
+<<<<<<< HEAD
 
         # Connect to the database
         conn = get_db_connection()
@@ -332,6 +410,35 @@ def login():
 def profile_update():
     if 'user_id' not in session:
        # flash('You need to log in first.')
+=======
+       # print(email,password)
+        # Fetch the user by email
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM Users WHERE email = ?', (email,))
+        user = cursor.fetchone()
+       # print(user)
+        conn.close()
+       # print(check_password_hash(user['password'], password))
+
+        if user and check_password_hash(user['password'], password):
+            session['user_id'] = user['user_id']
+            session['email'] = user['email']
+            session['name'] = user['name']
+            flash('Logged in successfully!')
+            return redirect(url_for('index'))
+        else:
+            flash('Login failed. Check your email and password.')
+            print('login failed')
+            return redirect(url_for('login'))
+
+    return render_template('login.html')
+
+@app.route('/profile_update', methods=['GET', 'POST'])
+def profile_update():
+    if 'user_id' not in session:
+        flash('You need to log in first.')
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
         return redirect(url_for('login'))
 
     user_id = session['user_id']
@@ -348,23 +455,35 @@ def profile_update():
         name = request.form.get('name')
         email = request.form.get('email')
         password = request.form.get('password')
+<<<<<<< HEAD
         phone=request.form.get('phone')
         gender=request.form.get('gender')
         dob=request.form.get('dob')
         print(name, email, password,phone,gender,dob)
+=======
+        print(name, email, password)
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
 
         # Update user details
         conn = get_db_connection()
         cursor = conn.cursor()
 
+<<<<<<< HEAD
         cursor.execute('UPDATE Users SET name = ?, email = ?, phone=?, gender=?, date_of_birth=? WHERE user_id = ?', (name, email,phone,gender,dob, user_id))
+=======
+        cursor.execute('UPDATE Users SET name = ?, email = ? WHERE user_id = ?', (name, email, user_id))
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
         if password:  
             hashed_password = generate_password_hash(password)
             cursor.execute('UPDATE Users SET password = ? WHERE user_id = ?', (hashed_password, user_id))
 
         conn.commit()
         conn.close()
+<<<<<<< HEAD
         #flash('Profile updated successfully!')
+=======
+        flash('Profile updated successfully!')
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
         return redirect(url_for('index'))
 
     return render_template('profile_update.html', user=user)
@@ -389,17 +508,28 @@ def forgot_password():
             print(reset_link)
             server = smtplib.SMTP('smtp.gmail.com', 587)
             server.starttls()
+<<<<<<< HEAD
             server.login( 'habitquestforkids@gmail.com','fyze mugm ulmu dlsm')
+=======
+            server.login( 'shyamraghav12@gmail.com','ccqm klcv qnpz dgmy')
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
             message_content = f'Your password reset link is: {reset_link}'
 
 # Construct the MIMEText object for the email body
             msg = MIMEText(message_content)
 
 # Set the sender, recipient, and subject of the email
+<<<<<<< HEAD
             msg['From'] = 'habitquestforkids@gmail.com'
             msg['To'] = email
             msg['Subject'] = 'Password Reset Request'
             server.sendmail('habitquestforkids@gmail.com', email, msg.as_string())# Send the email
+=======
+            msg['From'] = 'shyamraghav12@gmail.com'
+            msg['To'] = email
+            msg['Subject'] = 'Password Reset Request'
+            server.sendmail('shyamraghav12@gmail.com', email, msg.as_string())# Send the email
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
             flash('A password reset link has been sent to your email address.')
             return redirect(url_for('login'))
         else:
@@ -433,6 +563,7 @@ def reset_password(token):
     return render_template('reset_password.html', token=token)
 
 
+<<<<<<< HEAD
 @app.route('/setgoals')
 def setgoals():
     if 'user_id' not in session:
@@ -474,6 +605,12 @@ def add_goal():
     conn.close()
     
     return redirect(url_for('courses'))
+=======
+
+@app.route('/setgoals')
+def setgoals():
+    return render_template('set_goals.html')
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
 
 
 @app.route('/progress')
@@ -488,12 +625,21 @@ def progress():
     cursor = conn.cursor()
     
     # Fetch enrolled habits (courses) for the user
+<<<<<<< HEAD
     cursor.execute('''SELECT * FROM HabitProgress WHERE user_id = ?''', (user_id,))
+=======
+    cursor.execute('''
+        SELECT h.habit_id, h.habit_name 
+        FROM Habits h 
+        WHERE h.user_id = ?
+    ''', (user_id,))
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
     enrolled_habits = cursor.fetchall()
     
     progress_data = []
 
     for habit in enrolled_habits:
+<<<<<<< HEAD
         habit_id = habit['content_id']
         
         # Calculate total tasks and completed tasks for each habit
@@ -501,12 +647,22 @@ def progress():
         total_tasks = cursor.fetchone()['total_tasks']
         
         cursor.execute('SELECT COUNT(*) as completed_tasks FROM Tasks WHERE content_id = ? AND user_id = ? AND status = ?', 
+=======
+        habit_id = habit['habit_id']
+        
+        # Calculate total tasks and completed tasks for each habit
+        cursor.execute('SELECT COUNT(*) as total_tasks FROM Tasks WHERE habit_id = ? AND user_id = ?', (habit_id, user_id))
+        total_tasks = cursor.fetchone()['total_tasks']
+        
+        cursor.execute('SELECT COUNT(*) as completed_tasks FROM Tasks WHERE habit_id = ? AND user_id = ? AND status = ?', 
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
                        (habit_id, user_id, 'Completed'))
         completed_tasks = cursor.fetchone()['completed_tasks']
         
         # Calculate completion percentage
         completion_percentage = (completed_tasks / total_tasks * 100) if total_tasks > 0 else 0
         
+<<<<<<< HEAD
         # Add additional progress details from HabitProgress
         progress_data.append({
             'habit_name': habit['title'],
@@ -519,10 +675,19 @@ def progress():
 
     conn.close()
     
+=======
+        progress_data.append({
+            'habit_name': habit['habit_name'],
+            'completion_percentage': completion_percentage
+        })
+
+    conn.close()
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
     return render_template('progress.html', progress_data=progress_data, user=session)
 
 
 
+<<<<<<< HEAD
 # Route to display content dynamically
 @app.route('/course_content/<int:content_id>', methods=['GET'])
 def course_content(content_id):
@@ -652,10 +817,13 @@ def submit_assessment(content_id):
     return redirect(url_for('progress'))
 
 
+=======
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
 @app.route('/sync')
 def sync():
     return render_template('sync.html')
 
+<<<<<<< HEAD
 
 
 @app.route('/notification')
@@ -883,6 +1051,19 @@ def user_analysis():
                         habit_streak=habit_streak,
                         average_task_time=average_task_time)
 
+=======
+@app.route('/notification')
+def notification():
+    return render_template('notification.html')
+
+@app.route('/parental_monitoring')
+def parental_monitoring():
+    return render_template('parental_monitoring.html')
+
+@app.route('/user_analysis')
+def user_analysis():
+    return render_template('user_analysis.html')
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
 
 
 @app.route('/add_course', methods=['GET', 'POST'])
@@ -913,12 +1094,18 @@ def add_course():
 def enroll(course_name):
     conn = get_db_connection()
     cursor = conn.cursor()
+<<<<<<< HEAD
         # Check if the user is already enrolled in the course (habit)
     cursor.execute('SELECT * FROM CourseContent WHERE title = ?', 
                    (course_name,))
     c=cursor.fetchone()
     # Check if the user is already enrolled in the course (habit)
     cursor.execute('SELECT * FROM Tasks WHERE user_id = ? AND task_name = ?', 
+=======
+
+    # Check if the user is already enrolled in the course (habit)
+    cursor.execute('SELECT * FROM Habits WHERE user_id = ? AND habit_name = ?', 
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
                    (session['user_id'], course_name))
     habit = cursor.fetchone()
 
@@ -926,6 +1113,7 @@ def enroll(course_name):
         # If the user is not enrolled, create a new habit
         cursor.execute('INSERT INTO Habits (user_id, habit_name, description, frequency, start_date, end_date, status) VALUES (?, ?, ?, ?, ?, ?, ?)', 
                        (session['user_id'], course_name, f"Study {course_name}", 'Weekly', datetime.now().strftime("%Y-%m-%d"), None, 'Active'))
+<<<<<<< HEAD
         content_id = cursor.lastrowid
 
         # Create initial tasks for the course
@@ -950,15 +1138,43 @@ def enroll(course_name):
 
         cursor.execute('SELECT COUNT(*) as total_tasks FROM Tasks WHERE content_id = ?', 
                        (habit['content_id'],))
+=======
+        habit_id = cursor.lastrowid
+
+        # Create initial tasks for the course
+        cursor.execute('INSERT INTO Tasks (habit_id, user_id, task_name, due_date, status) VALUES (?, ?, ?, ?, ?)', 
+                       (habit_id, session['user_id'], 'Complete first assignment', datetime.now().strftime("%Y-%m-%d"), 'Pending'))
+
+        conn.commit()
+        
+        flash(f'Successfully enrolled in {course_name}!', 'success')
+        return render_template('course_enroll.html', course_name=course_name, habit_id=habit_id)
+    else:
+        # If already enrolled, check if all tasks are completed
+        cursor.execute('SELECT COUNT(*) as completed_count FROM Tasks WHERE habit_id = ? AND status = ?', 
+                       (habit['habit_id'], 'Completed'))
+        completed_count = cursor.fetchone()['completed_count'] or 0  # Use 0 if None
+
+        cursor.execute('SELECT COUNT(*) as total_tasks FROM Tasks WHERE habit_id = ?', 
+                       (habit['habit_id'],))
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
         total_tasks = cursor.fetchone()['total_tasks'] or 0  # Use 0 if None
 
         if total_tasks > 0:  # Ensure there are tasks to check
             if completed_count == total_tasks:
+<<<<<<< HEAD
                 print(f'You have completed the course {course_name}!', 'info')
             else:
                 print(f'You are already enrolled in {course_name} but have not completed all tasks!', 'info')
         else:
             print(f'You are already enrolled in {course_name}!', 'info')
+=======
+                flash(f'You have completed the course {course_name}!', 'info')
+            else:
+                flash(f'You are already enrolled in {course_name} but have not completed all tasks!', 'info')
+        else:
+            flash(f'You are already enrolled in {course_name}!', 'info')
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
 
     conn.close()
     return redirect(url_for('courses'))
@@ -970,35 +1186,61 @@ def courses():
     cursor = conn.cursor()
 
     # Fetch all courses (habits)
+<<<<<<< HEAD
     cursor.execute('SELECT * FROM CourseContent')
+=======
+    cursor.execute('SELECT * FROM Habits')
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
     habits = cursor.fetchall()
 
     # Prepare a list to hold course information with enrollment status
     courses = []
     
     # Fetch all user enrolled habits
+<<<<<<< HEAD
     cursor.execute('SELECT content_id FROM Tasks WHERE user_id = ?', (session['user_id'],))
     enrolled_habits = cursor.fetchall()
     enrolled_content_ids = {habit['content_id'] for habit in enrolled_habits}
+=======
+    cursor.execute('SELECT habit_id FROM Tasks WHERE user_id = ?', (session['user_id'],))
+    enrolled_habits = cursor.fetchall()
+    enrolled_habit_ids = {habit['habit_id'] for habit in enrolled_habits}
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
 
     for habit in habits:
         # Initialize the habit information
         habit_info = {
+<<<<<<< HEAD
             'content_id': habit['content_id'],
             'habit_name': habit['title'],
             'description': habit['description'],
             'is_enrolled': habit['content_id'] in enrolled_content_ids,
+=======
+            'habit_id': habit['habit_id'],
+            'habit_name': habit['habit_name'],
+            'description': habit['description'],
+            'is_enrolled': habit['habit_id'] in enrolled_habit_ids,
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
             'is_completed': False
         }
 
         # Check if the user has completed all tasks for the enrolled habit
         if habit_info['is_enrolled']:
+<<<<<<< HEAD
             cursor.execute('SELECT COUNT(*) as completed_count FROM Tasks WHERE content_id = ? AND user_id = ? AND status = ?', 
                            (habit['content_id'], session['user_id'], 'Completed'))
             completed_count = cursor.fetchone()['completed_count'] or 0  # Handle None
 
             cursor.execute('SELECT COUNT(*) as total_tasks FROM Tasks WHERE content_id = ? AND user_id = ?', 
                            (habit['content_id'], session['user_id']))
+=======
+            cursor.execute('SELECT COUNT(*) as completed_count FROM Tasks WHERE habit_id = ? AND user_id = ? AND status = ?', 
+                           (habit['habit_id'], session['user_id'], 'Completed'))
+            completed_count = cursor.fetchone()['completed_count'] or 0  # Handle None
+
+            cursor.execute('SELECT COUNT(*) as total_tasks FROM Tasks WHERE habit_id = ? AND user_id = ?', 
+                           (habit['habit_id'], session['user_id']))
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
             total_tasks = cursor.fetchone()['total_tasks'] or 0  # Handle None
 
             if completed_count == total_tasks and total_tasks > 0:
@@ -1014,6 +1256,7 @@ def courses():
             existing_habit.update(habit_info)
 
     conn.close()
+<<<<<<< HEAD
     return render_template('course.html', courses=courses, user=session,user_id=session['user_id'])
 
 
@@ -1143,12 +1386,48 @@ def add_assessment():
 
     return render_template('add_assessment.html')
 
+=======
+    return render_template('course.html', courses=courses, user=session)
+
+
+@app.route('/content_delivery/<int:habit_id>',methods=['GET', 'POST'])
+def content_delivery(habit_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # Fetch the content associated with the specified habit_id
+    cursor.execute('''
+        SELECT c.content_id, c.content_type, c.upload_date, c.uploaded_by
+        FROM Content c
+        JOIN Habits h ON c.associated_habits LIKE '%' || h.habit_name || '%'
+        WHERE h.habit_id = ?
+    ''', (habit_id,))
+    content = cursor.fetchall()
+
+    # Fetch the habit details to display on the page
+    cursor.execute('SELECT habit_name, description FROM Habits WHERE habit_id = ?', (habit_id,))
+    habit = cursor.fetchone()
+
+    conn.close()
+
+    return render_template('content_delivery.html', content=content, habit=habit)
+
+
+
+@app.route('/rewards')
+def rewards():
+    return render_template('rewards.html')
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
 
 
 @app.route('/logout')
 def logout():
     session.clear()  # Clears all session data
+<<<<<<< HEAD
     #flash('Logged out successfully.')
+=======
+    flash('Logged out successfully.')
+>>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
     return redirect(url_for('index'))
 
 
