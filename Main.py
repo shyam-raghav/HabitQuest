@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 from email.message import Message
 >>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
 from flask import Flask, render_template, redirect, url_for, flash, request, session
@@ -8,13 +7,13 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import URLSafeTimedSerializer
 import smtplib
-<<<<<<< HEAD
+
 from flask_apscheduler import APScheduler
 from email.mime.text import MIMEText
 from flask_mail import Mail, Message
-=======
+
 from email.mime.text import MIMEText
->>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
+
 
 app = Flask(__name__)
 app.secret_key = '4e4f7a3f49c658f7e2f2e3be3c6e3d2e682c1c3e4e2fcd11f40c3b487c3a19c5'  # Replace with your generated key
@@ -130,14 +129,14 @@ def index():
 
 @app.route('/', methods=['GET'])
 def index():
->>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
+    print(session)
     if 'email' in session:
         user_id = session['user_id']
         
         # Fetch counts and course names
         conn = get_db_connection()
         cursor = conn.cursor()
-<<<<<<< HEAD
+
         role = session['role']
            
             
@@ -221,7 +220,7 @@ def signup():
         email = request.form.get('email')
         password = request.form.get('password')
         role = request.form.get('role')  # Child, Parent, Teacher
-<<<<<<< HEAD
+
         phone=request.form.get('phone')
         registration_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -305,7 +304,7 @@ def get_parents():
     parents = cursor.fetchall()
     conn.close()
     return parents
-=======
+
         registration_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
         # Hash the password before storing
@@ -339,7 +338,7 @@ def get_parents():
             return redirect(url_for('signup'))
 
     return render_template('signup.html')
->>>>>>> e873609e42a2097cb16186699c1e2e0a300b1324
+
 
 # Login route
 @app.route('/login', methods=['GET', 'POST'])
