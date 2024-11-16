@@ -5,7 +5,7 @@ Flask-Mail
 Jinja2
 Werkzeug
 itsdangerous
-
+flask-apscheduler
 gunicorn 
 
 
