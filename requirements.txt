@@ -1,0 +1,8 @@
+Flask
+Flask-Login
+Flask-WTF
+Flask-Mail
+Jinja2
+Werkzeug
+itsdangerous
+gunicorn 
